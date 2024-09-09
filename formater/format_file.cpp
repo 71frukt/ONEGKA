@@ -7,7 +7,7 @@ void FormFile(FILE *orig_file, FILE *target_file);
 int main()
 {
     FILE *orig_onegin = fopen("orig_onegin.txt", "r");
-    FILE *form_onegin = fopen("form_onegin.txt", "w");
+    FILE *form_onegin = fopen("form_text.txt", "w");
 
     FormFile(orig_onegin, form_onegin);
 
