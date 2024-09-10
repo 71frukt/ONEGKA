@@ -3,16 +3,19 @@
 #include <assert.h>
 
 void FormFile(FILE *orig_file, FILE *target_file);
+const int LINE_LEN = 30;
 
 int main()
 {
     FILE *orig_onegin = fopen("orig_onegin.txt", "r");
-    FILE *form_onegin = fopen("form_text.txt", "w");
+    FILE *form_onegin = fopen("form_text.txt", "w+");
 
     FormFile(orig_onegin, form_onegin);
 
     fclose(orig_onegin);
     fclose(form_onegin);
+
+    return 0;
 }
 
 void FormFile(FILE *orig_file, FILE *target_file)
@@ -21,18 +24,22 @@ void FormFile(FILE *orig_file, FILE *target_file)
     assert(target_file);
     assert(orig_file != target_file);
 
-    char curr_ch = 0;
+    char line[LINE_LEN] = {};
 
-    while ((curr_ch = fgetc(orig_file)) != EOF)
+    int i = 0;
+    while (true)
     {
-        while (isspace(curr_ch) || !isalpha(curr_ch))
+        char curr_ch = 0;
+        while ((isspace(curr_ch) || !isalpha(curr_ch)) && curr_ch != EOF)
             curr_ch = fgetc(orig_file);
         
         ungetc(curr_ch, orig_file);
 
-        while ((curr_ch = fgetc(orig_file)) != '\n' && curr_ch != EOF)
-            fputc(curr_ch, target_file);
-        
-        fputc('\n', target_file);
+        if (fgets(line, LINE_LEN, orig_file) != NULL)
+            fputs(line, target_file);
+
+        else
+            break;
+
     } 
 }
