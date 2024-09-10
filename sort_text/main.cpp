@@ -14,6 +14,8 @@ int ReadFile(char buf[][LINES_LEN], int lines_count, FILE *file);
 int main()
 {
     FILE *text_file = fopen("C:/Users/71fru/Documents/GitHub/ONEGKA/formater/form_text.txt", "r");
+    FILE *target_file = fopen("sort_text.txt", "w+");
+
     int text_size = file_info.st_size;
 
     if (fstat(fileno(text_file), &file_info) != 0)
@@ -37,7 +39,7 @@ int main()
     MySort(p_lines, LINES_COUNT, sizeof(p_lines[0]), StrCompare);
 
     for (int i = 0; i < LINES_COUNT; i++)
-        printf("%s", p_lines[i]);
+        fputs(p_lines[i], target_file);
 
     fclose(text_file);
 }
