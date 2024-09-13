@@ -2,8 +2,7 @@
 #include <ctype.h>
 #include <assert.h>
 
-void FormFile(FILE *orig_file, FILE *target_file);
-const int LINE_LEN = 30;
+#include "format_file.h"
 
 int main()
 {
@@ -26,20 +25,68 @@ void FormFile(FILE *orig_file, FILE *target_file)
 
     char line[LINE_LEN] = {};
 
-    int i = 0;
     while (true)
     {
-        char curr_ch = 0;
-        while ((isspace(curr_ch) || !isalpha(curr_ch)) && curr_ch != EOF)
-            curr_ch = fgetc(orig_file);
-        
-        ungetc(curr_ch, orig_file);
+        SkipExtra(orig_file);
 
         if (fgets(line, LINE_LEN, orig_file) != NULL)
             fputs(line, target_file);
+
+            //sscanf (line, "%[IVXLM]%[ ]%c", roman, &ch);  TODOs
 
         else
             break;
 
     } 
 }
+
+bool IsRomanDigit(char ch)
+{
+    return (ch == 'I' || ch == 'V' || ch == 'X' || ch == 'L') ? true : false; 
+}
+
+void SkipExtra(FILE *file)
+{
+    char curr_ch = 0;
+
+    while (curr_ch != EOF) 
+    {
+        SkipRomanDigits(file, &curr_ch);
+
+        if (isspace(curr_ch) || !isalpha(curr_ch))
+            curr_ch = (char) fgetc(file);
+
+        else
+            break;
+    }
+    
+    ungetc(curr_ch, file);
+}
+
+void SkipRomanDigits(FILE *file, char *p_curr_ch)
+{
+    if (IsRomanDigit(*p_curr_ch)) 
+    {
+        char next_ch = (char) fgetc(file);
+
+        if (IsRomanDigit(next_ch))
+            while (IsRomanDigit(*p_curr_ch = (char) fgetc(file)))
+                continue;
+
+        else if (isspace(next_ch)) 
+            while (isspace(next_ch))
+            {
+                if (next_ch == '\n')
+                {
+                    *p_curr_ch = next_ch;
+                    break;
+                }
+
+                next_ch = (char) fgetc(file);
+            }
+    }
+}
+
+
+
+
