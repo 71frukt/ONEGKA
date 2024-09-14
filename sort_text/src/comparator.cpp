@@ -4,6 +4,7 @@
 #include <string.h>
 
 #include "comparator.h"
+#include "read_file.h"
 
 int StrCompare(void *str_1, void *str_2)
 {
@@ -15,11 +16,11 @@ int StrCompare(void *str_1, void *str_2)
 
     //printf("(%s) %02x %02x %02x %02x\n", str_2, ((unsigned char*)str_2)[0], ((unsigned char*)str_2)[1], ((unsigned char*)str_2)[2], ((unsigned char*)str_2)[3]);
 
-    char **line_1 = (char**) str_1;
-    char **line_2 = (char**) str_2;
+    Line **line_1 = (Line **) str_1;
+    Line **line_2 = (Line **) str_2;
     
-    char *cont_1 = *line_1;
-    char *cont_2 = *line_2;
+    char *cont_1 = (*line_1)->line_cont;
+    char *cont_2 = (*line_2)->line_cont;
 
     for (int i = 0, k = 0; cont_1[i] != '\0' || cont_2[k] != '\0'; i++, k++)
     {
@@ -50,11 +51,11 @@ int StrReverceCompare(void *str_1, void *str_2)
     assert(str_1);
     assert(str_2);
 
-    char **line_1 = (char**) str_1;
-    char **line_2 = (char**) str_2;
+    Line **line_1 = (Line **) str_1;
+    Line **line_2 = (Line **) str_2;
     
-    char *cont_1 = *line_1;
-    char *cont_2 = *line_2;
+    char *cont_1 = (*line_1)->line_cont;
+    char *cont_2 = (*line_2)->line_cont;
 
     int len_1 = strlen(cont_1);
     int len_2 = strlen(cont_2);

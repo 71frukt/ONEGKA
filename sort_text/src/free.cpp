@@ -10,5 +10,5 @@ void FreeTextInfo(TextInfo *text_info)
     assert(text_info);
     
     free(text_info->p_lines);
-    free(text_info->content);
+    free(text_info->text_cont);
 }
