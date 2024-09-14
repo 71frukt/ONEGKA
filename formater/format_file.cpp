@@ -4,10 +4,10 @@
 
 #include "format_file.h"
 
-int main()
+int main() // TODO: separate to files
 {
-    FILE *orig_onegin = fopen("orig_onegin.txt", "r");
-    FILE *form_onegin = fopen("form_text.txt", "w+");
+    FILE *orig_onegin = fopen("texts/orig_onegin.txt", "r");
+    FILE *form_onegin = fopen("texts/form_text.txt", "w+");
 
     FormFile(orig_onegin, form_onegin);
 
@@ -31,12 +31,10 @@ void FormFile(FILE *orig_file, FILE *target_file)
 
         if (fgets(line, LINE_LEN, orig_file) != NULL)
             fputs(line, target_file);
-
             //sscanf (line, "%[IVXLM]%[ ]%c", roman, &ch);  TODOs
-
+        
         else
             break;
-
     } 
 }
 

@@ -5,9 +5,16 @@
 
 enum ReadFileCode 
 {
-    GOOD_READ,
+    READ_OK,
     ERR_READ
 };
+
+struct Line
+{
+    char *content;
+    int length;
+};
+
 
 struct TextInfo
 {
@@ -15,10 +22,11 @@ struct TextInfo
     char *content;
 
     size_t num_lines;
-    char **p_lines;
+    char **p_lines; // TODO: struct { char *line; size_t line_len}
 };
 
 ReadFileCode ReadFile(FILE *file, TextInfo *text_info);
 void PutPointers(TextInfo *text_info);
+int SetEndsOfLines(char *text, int text_len);
 
 #endif

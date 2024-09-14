@@ -4,9 +4,13 @@ FLAGS = -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-equa
 		-Wstack-usage=8192 -Wstrict-aliasing -Wstrict-null-sentinel -Wtype-limits -Wwrite-strings -Werror=vla -D_DEBUG -D_EJUDGE_CLIENT_SIDE
 INCLUDE = -I lib
 SOURCES = $(wildcard src/*.cpp)
+BUILD_DIR = ../build
 
-all:
-	g++ $(SOURCES) $(FLAGS) $(INCLUDE) -o main
+all: makedirs
+	g++ $(SOURCES) $(FLAGS) $(INCLUDE) -o $(BUILD_DIR)/main
+
+makedirs: 
+	mkdir $(BUILD_DIR) -p
 
 clean:
 	rm -rf *.exe
