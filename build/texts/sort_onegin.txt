@@ -4872,7 +4872,6 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 
 
-
 Now, Lensky, would it be so bad
 Onegin, d'you recall the day
 until the tombstone; there one day
@@ -9687,3 +9686,4 @@ down slopes of mountains, when a blaze
 his head upon her shoulder...blaze
 has kept him warm in chimney's blaze
 apartment where a double glaze
+
