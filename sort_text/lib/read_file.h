@@ -22,7 +22,7 @@ struct TextInfo
     char *text_cont;
 
     size_t num_lines;
-    Line **p_lines; // TODO: struct { char *line; size_t line_len}
+    Line **p_lines;
 };
 
 ReadFileCode ReadFile(FILE *file, TextInfo *text_info);

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <sys\stat.h>
 #include <assert.h>
+#include <string.h>
 //#include "TXLib.h"
 
 #include "read_file.h" 
@@ -53,7 +54,9 @@ void PutPointers(TextInfo *text_info)
 
         if (text_info->text_cont[el_num] == '\0')
         {
-            (text_info->p_lines)[line_num]->line_cont = &text_info->text_cont[el_num + 1];
+            text_info->p_lines[line_num]->line_cont = &text_info->text_cont[el_num + 1];
+            text_info->p_lines[line_num]->length = strlen(&text_info->text_cont[el_num + 1]);
+
             line_num++;
         }
     }

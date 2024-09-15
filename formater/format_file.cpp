@@ -4,7 +4,7 @@
 
 #include "format_file.h"
 
-int main() // TODO: separate to files
+int main() 
 {
     FILE *orig_onegin = fopen("texts/orig_onegin.txt", "r");
     FILE *form_onegin = fopen("texts/form_text.txt", "w+");
@@ -31,7 +31,6 @@ void FormFile(FILE *orig_file, FILE *target_file)
 
         if (fgets(line, LINE_LEN, orig_file) != NULL)
             fputs(line, target_file);
-            //sscanf (line, "%[IVXLM]%[ ]%c", roman, &ch);  TODOs
         
         else
             break;
@@ -84,7 +83,4 @@ void SkipRomanDigits(FILE *file, char *p_curr_ch)
             }
     }
 }
-
-
-
 

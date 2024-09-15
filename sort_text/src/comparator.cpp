@@ -57,31 +57,32 @@ int StrReverceCompare(void *str_1, void *str_2)
     char *cont_1 = (*line_1)->line_cont;
     char *cont_2 = (*line_2)->line_cont;
 
-    int len_1 = strlen(cont_1);
-    int len_2 = strlen(cont_2);
+    int i = (*line_1)->length - 2;
+    int k = (*line_2)->length - 2;
 
-    for (int i = 1, k = 1; cont_1[i] != '\0' || cont_2[k] != '\0'; i++, k++)    //пока оба указателя не дойдут до конца предыдущей строки
+    for ( ; cont_1[i] != '\0' || cont_2[k] != '\0'; i--, k--)    //пока оба указателя не дойдут до конца предыдущей строки
     {
-        int num_1 = len_1 - i;
-        int num_2 = len_2 - k;
+        assert(i < (*line_1)->length);
+        assert(k < (*line_2)->length);
+        
 
-        if (!isalpha(cont_1[num_1]))
+        if (!isalpha(cont_1[i]) && cont_1[i] != '\0')
         {
-            k--; 
+            k++; 
             continue;
         }
 
-        if (!isalpha(cont_2[num_2]))
+        if (!isalpha(cont_2[k]) && cont_2[k] != '\0')
         {
-            i--;
+            i++;
             continue;
         }
         
-        if (toupper(cont_1[num_1]) > toupper(cont_2[num_2]) || cont_2[num_2] == '\0')
+        
+        if (toupper(cont_1[i]) > toupper(cont_2[k]) || cont_2[k] == '\0')
             return 1;
-        
     
-        else if (toupper(cont_2[num_2]) > toupper(cont_1[num_1]) || cont_1[num_1] == '\0')
+        else if (toupper(cont_2[k]) > toupper(cont_1[i]) || cont_1[i] == '\0')
             return -1;
     }
 

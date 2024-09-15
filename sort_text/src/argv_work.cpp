@@ -10,8 +10,8 @@ OpenFilesRes OpenGettedFiles(const int argc, const char *argv[], FILE **file_fro
     assert(file_to);
     assert(file_from != file_to);
 
-    *file_from = fopen(argv[1], "r");
-    *file_to = fopen(argv[2], "w+");
+    *file_from = fopen(argv[1], "r");   
+    *file_to = fopen(argv[2], "w+");    
 
     if (argc < 3)
     {
