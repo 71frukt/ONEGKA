@@ -40,6 +40,10 @@ OpenFilesRes OpenGettedFiles(const int argc, const char *argv[], FILE **file_fro
 
 void GetPath(char *res_path, const char *folder, const char *name, size_t max_foldname_len, size_t max_path_name)
 {
+    assert(res_path);
+    assert(folder);
+    assert(name);
+
     strncat(res_path, folder, max_foldname_len);
     strncat(res_path, name, max_path_name - max_foldname_len - 1);
 }

@@ -20,10 +20,10 @@ ReadFileCode ReadFile(FILE *file, TextInfo *text_info)
         return ERR_READ;
     }
     
-    int prev_text_len = file_info.st_size;
+    int prev_text_len = file_info.st_size + 1;
 
     char *text = (char*) calloc(prev_text_len, sizeof(char));
-    int real_text_len = fread(text, sizeof(char), prev_text_len, file);
+    int real_text_len = fread(text, sizeof(char), prev_text_len, file) + 1;
 
     int num_lines = SetEndsOfLines(text, real_text_len);
 
@@ -32,12 +32,6 @@ ReadFileCode ReadFile(FILE *file, TextInfo *text_info)
     text_info->num_lines = num_lines;
 
     return READ_OK;
-
-/*
-    printf("psevdo num elems: %d\n", prev_text_len);
-    printf("num elems: %d\n",        real_text_len);
-    printf("num lines: %d\n",        num_lines);
-*/
 }
 
 void PutPointers(TextInfo *text_info)

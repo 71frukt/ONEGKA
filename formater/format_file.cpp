@@ -44,6 +44,8 @@ bool IsRomanDigit(char ch)
 
 void SkipExtra(FILE *file)
 {
+    assert(file);
+    
     char curr_ch = 0;
 
     while (curr_ch != EOF) 
@@ -62,6 +64,9 @@ void SkipExtra(FILE *file)
 
 void SkipRomanDigits(FILE *file, char *p_curr_ch)
 {
+    assert(file);
+    assert(p_curr_ch);
+
     if (IsRomanDigit(*p_curr_ch)) 
     {
         char next_ch = (char) fgetc(file);
@@ -71,6 +76,7 @@ void SkipRomanDigits(FILE *file, char *p_curr_ch)
                 continue;
 
         else if (isspace(next_ch)) 
+        {
             while (isspace(next_ch))
             {
                 if (next_ch == '\n')
@@ -81,6 +87,7 @@ void SkipRomanDigits(FILE *file, char *p_curr_ch)
 
                 next_ch = (char) fgetc(file);
             }
+        }
     }
 }
 

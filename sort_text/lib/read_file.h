@@ -15,7 +15,6 @@ struct Line
     int length;
 };
 
-
 struct TextInfo
 {
     size_t length;

@@ -65,7 +65,6 @@ int StrReverceCompare(void *str_1, void *str_2)
         assert(i < (*line_1)->length);
         assert(k < (*line_2)->length);
         
-
         if (!isalpha(cont_1[i]) && cont_1[i] != '\0')
         {
             k++; 
@@ -77,7 +76,6 @@ int StrReverceCompare(void *str_1, void *str_2)
             i++;
             continue;
         }
-        
         
         if (toupper(cont_1[i]) > toupper(cont_2[k]) || cont_2[k] == '\0')
             return 1;
