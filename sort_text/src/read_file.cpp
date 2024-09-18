@@ -7,6 +7,19 @@
 
 #include "read_file.h" 
 
+GetTextInfoCode GetTextInfo(FILE *file, TextInfo *text_info)
+{    
+    if (ReadFile(file, text_info) != READ_OK)
+    {
+        text_info = NULL;
+        return GET_TXT_ERROR;
+    }
+
+    PutPointers(text_info);
+    return GET_TXT_OK;
+} 
+
+
 ReadFileCode ReadFile(FILE *file, TextInfo *text_info)
 {
     assert(file);
@@ -20,10 +33,16 @@ ReadFileCode ReadFile(FILE *file, TextInfo *text_info)
         return ERR_READ;
     }
     
-    int prev_text_len = file_info.st_size + 1;
+    int prev_text_len = file_info.st_size;
+    if (prev_text_len == 0)
+    {
+        printf("The file is empty!\n");
+        return ERR_READ;
+    } 
 
     char *text = (char*) calloc(prev_text_len, sizeof(char));
-    int real_text_len = fread(text, sizeof(char), prev_text_len, file) + 1;
+    
+    int real_text_len = fread(text, sizeof(char), prev_text_len, file);
 
     int num_lines = SetEndsOfLines(text, real_text_len);
 
@@ -38,7 +57,7 @@ void PutPointers(TextInfo *text_info)
 {
     assert(text_info);
 
-    text_info->p_lines = CallocP_Lines(text_info->num_lines);
+    text_info->p_lines = Calloc_Ptr_Lines(text_info->num_lines);
 
     text_info->p_lines[0]->line_cont = text_info->text_cont;
 
@@ -49,7 +68,7 @@ void PutPointers(TextInfo *text_info)
         if (text_info->text_cont[el_num] == '\0')
         {
             text_info->p_lines[line_num]->line_cont = &text_info->text_cont[el_num + 1];
-            text_info->p_lines[line_num]->length = strlen(&text_info->text_cont[el_num + 1]);
+            text_info->p_lines[line_num]->length    = strlen(&text_info->text_cont[el_num + 1]);
 
             line_num++;
         }
@@ -77,15 +96,25 @@ int SetEndsOfLines(char *text, int text_len)
     return num_lines;
 }
 
-Line **CallocP_Lines(size_t num_lines)
+Line **Calloc_Ptr_Lines(size_t num_lines)
 {
-    Line **res_ptr = (Line**) calloc(num_lines, sizeof(Line*));
+    Line **res_ptr  = (Line**) calloc(num_lines, sizeof(Line*));
     Line *lines_ptr = (Line *) calloc(num_lines, sizeof(Line));
 
     for (size_t i = 0; i < num_lines; i++)
-    {
         res_ptr[i] = lines_ptr + i;
-    }
 
     return res_ptr;
+}
+
+void CopyTextInfos(TextInfo *text_info_to, TextInfo *text_info_from)
+{
+    text_info_to->length    = text_info_from->length;
+    text_info_to->num_lines = text_info_from->num_lines;
+    text_info_to->text_cont = text_info_from->text_cont;
+
+    text_info_to->p_lines = Calloc_Ptr_Lines(text_info_from->num_lines);
+
+    for (size_t i = 0; i < text_info_to->num_lines; i++)
+        text_info_to->p_lines[i] = text_info_from->p_lines[i];
 }

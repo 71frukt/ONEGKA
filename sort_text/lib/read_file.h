@@ -3,6 +3,12 @@
 
 #include <stdio.h>
 
+enum GetTextInfoCode
+{
+    GET_TXT_OK,
+    GET_TXT_ERROR
+};
+
 enum ReadFileCode 
 {
     READ_OK,
@@ -24,9 +30,11 @@ struct TextInfo
     Line **p_lines;
 };
 
+GetTextInfoCode GetTextInfo(FILE *file, TextInfo *text_info);
 ReadFileCode ReadFile(FILE *file, TextInfo *text_info);
+void CopyTextInfos(TextInfo *text_info_to, TextInfo *text_info_from);
 void PutPointers(TextInfo *text_info);
 int SetEndsOfLines(char *text, int text_len);
-Line **CallocP_Lines(size_t num_lines);
+Line **Calloc_Ptr_Lines(size_t num_lines);
 
 #endif
