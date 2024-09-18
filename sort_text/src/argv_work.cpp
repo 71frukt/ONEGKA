@@ -12,7 +12,7 @@ OpenFilesRes OpenGettedFiles(const int argc, const char *argv[], FILE **file_fro
     assert(file_from != file_to);
 
     char path_from[MAX_PATH_LEN] = {};
-    char path_to[MAX_PATH_LEN] = {};
+    char path_to  [MAX_PATH_LEN] = {};
     
     int max_cpy_len = MAX_PATH_LEN - MAX_FOLDNAME_LEN - 1;
 
@@ -20,7 +20,7 @@ OpenFilesRes OpenGettedFiles(const int argc, const char *argv[], FILE **file_fro
     GetPath(path_to,   FOLD_NAME, argv[2], MAX_FOLDNAME_LEN, max_cpy_len);
 
     *file_from = fopen(path_from, "r");   
-    *file_to = fopen(path_to, "w+");    
+    *file_to   = fopen(path_to,   "w");    
 
     if (argc < 3)
     {
@@ -45,5 +45,5 @@ void GetPath(char *res_path, const char *folder, const char *name, size_t max_fo
     assert(name);
 
     strncat(res_path, folder, max_foldname_len);
-    strncat(res_path, name, max_path_name - max_foldname_len - 1);
+    strncat(res_path, name,   max_path_name - max_foldname_len - 1);
 }

@@ -23,7 +23,7 @@ void MySort(void *arr, size_t ar_size, size_t el_size, int (*compare) (void *str
         while (compare(p_arr + right * el_size, pivot) > 0 && left <= right)
             right--;    
         
-        if(left > right)
+        if (left > right)
             break;
 
         Swap(p_arr + left  * el_size, p_arr + right * el_size, el_size);    
