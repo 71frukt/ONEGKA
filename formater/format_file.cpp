@@ -4,10 +4,10 @@
 
 #include "format_file.h"
 
-int main() 
+int main (int argc, const char* argv[]) 
 {
-    FILE *orig_onegin = fopen("texts/orig_onegin.txt", "r");
-    FILE *form_onegin = fopen("texts/form_text.txt", "w+");
+    FILE *orig_onegin = fopen((argc >= 2) ? argv[1] : ORIG_TEXT_DEFAULT_PATH, "r");
+    FILE *form_onegin = fopen((argc >= 3) ? argv[2] : FORM_TEXT_DEFAULT_PATH, "w");
 
     FormFile(orig_onegin, form_onegin);
 
@@ -75,18 +75,15 @@ void SkipRomanDigits(FILE *file, char *p_curr_ch)
             while (IsRomanDigit(*p_curr_ch = (char) fgetc(file)))
                 continue;
 
-        else if (isspace(next_ch)) 
+        while (isspace(next_ch))
         {
-            while (isspace(next_ch))
+            if (next_ch == '\n')
             {
-                if (next_ch == '\n')
-                {
-                    *p_curr_ch = next_ch;
-                    break;
-                }
-
-                next_ch = (char) fgetc(file);
+                *p_curr_ch = next_ch;
+                break;
             }
+
+            next_ch = (char) fgetc(file);
         }
     }
 }
