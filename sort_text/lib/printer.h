@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "read_file.h"
 
-void FprintLines(FILE *file, Line **p_lines, size_t num_lines);
+void FprintText(FILE *file, const TextInfo *text_info);
+void FprintSeparator(FILE *file);
 
 #endif
