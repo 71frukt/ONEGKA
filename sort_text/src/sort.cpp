@@ -4,7 +4,7 @@
 
 #include "sort.h"
 
-void MySort(void *arr, size_t ar_size, size_t el_size, int (*compare) (void *str_1, void *str_2))
+void MyQSort(void *arr, size_t ar_size, size_t el_size, int (*compare) (void *str_1, void *str_2))
 {
     assert(arr);
     assert(compare);
@@ -33,10 +33,10 @@ void MySort(void *arr, size_t ar_size, size_t el_size, int (*compare) (void *str
     } 
 
     if (left >= 2)
-        MySort(p_arr, left, el_size, compare);
+        MyQSort(p_arr, left, el_size, compare);
     
     if ((ar_size - left) >= 2)
-        MySort((p_arr + left * sizeof(void*)), ar_size - left, el_size, compare);   
+        MyQSort((p_arr + left * sizeof(void*)), ar_size - left, el_size, compare);   
 }
 
 void Swap(void *ptr1, void *ptr2, size_t el_size)

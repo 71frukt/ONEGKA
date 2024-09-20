@@ -30,13 +30,13 @@ int main(const int argc, const char *argv[])
     TextInfo start_text = {};
     CopyTextInfos(&start_text, &text);
 
-    MySort(text.p_lines, text.num_lines, sizeof(void*), StrCompare); 
+    MyQSort(text.p_lines, text.num_lines, sizeof(void*), StrCompare); 
     FprintText(target_file, &text);
     FprintSeparator(target_file);
 
     fprintf(stderr, "COMPARE DONE \n");
 
-    MySort(text.p_lines, text.num_lines, sizeof(void*), StrReverceCompare);    
+    MyQSort(text.p_lines, text.num_lines, sizeof(void*), StrReverceCompare);    
     FprintText(target_file, &text);
     FprintSeparator(target_file);
 
